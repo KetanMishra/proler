@@ -1,5 +1,3 @@
-const Program = require('../models/Program');
-
 const samplePrograms = [
   {
     id: 'hiit-training',
@@ -115,7 +113,7 @@ const samplePrograms = [
       'Foam rollers',
       'Props for specific classes'
     ],
-    whatToExpected: [
+    whatToExpect: [
       'Energetic warm-up with the group',
       'Main workout tailored to class type',
       'Modifications for different fitness levels',
@@ -142,20 +140,96 @@ const samplePrograms = [
     isFeatured: true,
     enrollmentCount: 234,
     rating: { average: 4.6, count: 45 }
+  },
+  {
+    id: 'strength-training',
+    title: 'Strength Training',
+    subtitle: 'Build Power, Muscle, and Confidence',
+    description: 'Our comprehensive strength training program focuses on progressive overload principles to help you build muscle, increase power, and transform your physique.',
+    longDescription: 'Whether you\'re a beginner or advanced lifter, our program adapts to your level with expert guidance and proven methodologies.',
+    image: 'https://images.pexels.com/photos/1552106/pexels-photo-1552106.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+    duration: '90 minutes',
+    level: 'Beginner to Advanced',
+    maxParticipants: '8',
+    price: 2625,
+    originalPrice: 3500,
+    discount: '25% off',
+    instructor: {
+      name: 'Rohit Kumar',
+      image: 'https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop',
+      experience: '12 years',
+      certifications: ['CSCS', 'Powerlifting Coach', 'Olympic Lifting Certified'],
+      bio: 'Expert strength coach with powerlifting and Olympic lifting background',
+      specialties: ['Strength Training', 'Powerlifting', 'Olympic Lifting']
+    },
+    benefits: [
+      'Increase muscle mass and strength',
+      'Improve bone density',
+      'Boost metabolism',
+      'Better functional movement',
+      'Enhanced athletic performance',
+      'Injury prevention'
+    ],
+    features: [
+      'Progressive overload programming',
+      'Form correction and safety',
+      'Compound movement focus',
+      'Personalized progression'
+    ],
+    equipment: [
+      'Olympic barbells',
+      'Dumbbells (5-100 lbs)',
+      'Power racks',
+      'Cable machines',
+      'Specialty bars',
+      'Plate-loaded machines'
+    ],
+    whatToExpected: [
+      'Proper warm-up and mobility work',
+      'Compound movement focus',
+      'Progressive overload programming',
+      'Form correction and safety guidance',
+      'Accessory exercises for muscle balance',
+      'Recovery and stretching protocols'
+    ],
+    schedule: [
+      { day: 'Monday', time: '5:30 AM - 7:00 AM', spots: 6, focus: 'Upper Body', isAvailable: true },
+      { day: 'Tuesday', time: '6:00 PM - 7:30 PM', spots: 4, focus: 'Lower Body', isAvailable: true },
+      { day: 'Wednesday', time: '5:30 AM - 7:00 AM', spots: 7, focus: 'Full Body', isAvailable: true },
+      { day: 'Thursday', time: '6:00 PM - 7:30 PM', spots: 3, focus: 'Push/Pull', isAvailable: true },
+      { day: 'Friday', time: '5:30 AM - 7:00 AM', spots: 8, focus: 'Functional', isAvailable: true },
+      { day: 'Saturday', time: '8:00 AM - 9:30 AM', spots: 5, focus: 'Powerlifting', isAvailable: true }
+    ],
+    category: 'strength',
+    tags: ['Strength Training', 'Muscle Building', 'Powerlifting', 'Progressive Overload'],
+    difficulty: 3,
+    caloriesBurn: { min: 250, max: 400 },
+    prerequisites: ['Basic understanding of gym equipment'],
+    contraindications: ['Recent back injuries', 'Uncontrolled high blood pressure'],
+    isActive: true,
+    isPopular: false,
+    isFeatured: true,
+    enrollmentCount: 89,
+    rating: { average: 4.9, count: 34 }
   }
 ];
 
 async function seedPrograms() {
   try {
+    const Program = require('../models/Program');
+    
     // Clear existing programs
     await Program.deleteMany({});
+    console.log('Cleared existing programs');
     
     // Insert sample programs
-    await Program.insertMany(samplePrograms);
+    const insertedPrograms = await Program.insertMany(samplePrograms);
+    console.log(`Successfully seeded ${insertedPrograms.length} programs`);
     
-    console.log('Sample programs seeded successfully');
+    return insertedPrograms;
   } catch (error) {
     console.error('Error seeding programs:', error);
+    throw error;
   }
 }
 
